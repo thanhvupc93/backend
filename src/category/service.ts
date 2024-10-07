@@ -1,16 +1,34 @@
 import { Injectable } from '@nestjs/common';
-import { Category } from './interfaces/Category';
-import { categories } from './data'
+import { InjectRepository } from '@nestjs/typeorm';
+import { Repository } from 'typeorm';
+import { Category } from './entity';
+import { CreateCategoryDto } from './dto/category.dto';
 
 @Injectable()
 export class CategoryService {
-  private readonly categories: Category[] = categories;
+  constructor(
+    @InjectRepository(Category)
+    private readonly categoryRepository: Repository<Category>,
+  ) {}
 
-  create(category: Category) {
-    this.categories.push(category);
+  create(createProductDto: CreateCategoryDto): Promise<Category> {
+    const category = new Category();
+    category.image = createProductDto.image;
+    category.title = createProductDto.title;
+    category.type = createProductDto.type;
+    
+    return this.categoryRepository.save(category);
   }
 
-  findAll(): Category[] {
-    return this.categories;
+  async findAll(): Promise<Category[]> {
+    return this.categoryRepository.find();
+  }
+
+  findOne(id: number): Promise<Category> {
+    return this.categoryRepository.findOneBy({ id: id });
+  }
+
+  async remove(id: string): Promise<void> {
+    await this.categoryRepository.delete(id);
   }
 }

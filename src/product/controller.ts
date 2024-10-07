@@ -1,28 +1,36 @@
-import { Controller, Get, Post, Body } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete } from '@nestjs/common';
 import { ProductService } from './service';
 import { CreateProductDto } from './dto/product.dto';
-import { Product } from './interfaces/Product';
-import { ProductType } from 'src/common/constants';
+import { Product } from './entity';
 
 @Controller('products')
 export class ProductController {
-  constructor(private productService: ProductService) { }
+  constructor(private readonly productService: ProductService) { }
 
   @Post()
-  async create(@Body() createProductDto: CreateProductDto) {
-    this.productService.create(createProductDto);
+  create(@Body() createProductDto: CreateProductDto): Promise<Product> {
+    return this.productService.create(createProductDto);
   }
 
   @Get()
-  async findAll(): Promise<Product[]> {
+  findAll(): Promise<Product[]> {
     return this.productService.findAll();
   }
-   @Get('/food')
-  async findAllFood(): Promise<Product[]> {
-    return this.productService.findAll().filter(element => element.category === ProductType.FOOD);
+
+  @Get(':id')
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<Product> {
+    return this.productService.findOne(id);
   }
-  @Get('/clothing')
-  async findAllClothing(): Promise<Product[]> {
-    return this.productService.findAll().filter(element => element.category === ProductType.CLOTHING);
+
+  @Get('search-category/:id')
+  findByCategory(@Param('id', ParseIntPipe) id: number): Promise<Product[]> {
+    return this.productService.findByCategory(id)
   }
+
+  @Delete(':id')
+  remove(@Param('id') id: string): Promise<void> {
+    return this.productService.remove(id);
+  }
+
+
 }
