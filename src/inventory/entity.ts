@@ -19,6 +19,9 @@ export class Inventory {
   @Column('numeric', { nullable: true })
   price: number;
 
+  @Column('numeric', { nullable: true })
+  quantity: number;
+
   @Column({ default: true })
   isActive: boolean;
 

@@ -31,15 +31,15 @@ export class Product {
   @Column({ nullable: true })
   description: string;
 
-  @ManyToMany(() => Inventory)
+  @ManyToMany(() => Inventory, { nullable: true })
   @JoinTable()
   inventories: Inventory[];
 
-  @ManyToMany(() => Color)
+  @ManyToMany(() => Color, { nullable: true })
   @JoinTable()
   colors: Color[];
 
-  @ManyToMany(() => Size)
+  @ManyToMany(() => Size, { nullable: true })
   @JoinTable()
   sizes: Size[];
 
