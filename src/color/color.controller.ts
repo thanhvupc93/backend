@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete } from '@nestjs/common';
-import { ColorService } from './service';
+import { ColorService } from './color.service';
 import { CreateColorDto } from './dto/color.dto';
-import { Color } from './entity';
+import { Color } from './color.entity';
 
 
 @Controller('color')

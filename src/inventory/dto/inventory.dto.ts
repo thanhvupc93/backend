@@ -1,6 +1,6 @@
-import { Color } from 'src/color/entity';
-import { Product } from 'src/product/entity';
-import { Size } from 'src/size/entity';
+import { Color } from 'src/color/color.entity';
+import { Product } from 'src/product/product.entity';
+import { Size } from 'src/size/size.entity';
 
 export class CreateInventoryDto {
   id: number;

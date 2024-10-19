@@ -1,21 +1,22 @@
 import { MiddlewareConsumer, Module, NestModule } from '@nestjs/common';
 import { AppController } from './app.controller';
 import { AppService } from './app.service';
-import { ProductModule } from './product/module';
-import { CategoryModule } from './category/module';
+import { ProductModule } from './product/product.module';
+import { CategoryModule } from './category/category.module';
 import { TypeOrmModule } from '@nestjs/typeorm';
-import { User } from './user/entity';
-import { UsersModule } from './user/module';
+import { User } from './users/users.entity';
+import { UsersModule } from './users/users.module';
 import configuration from './config/configuration';
 import { ConfigModule, ConfigService } from '@nestjs/config';
 import { DataSource } from 'typeorm';
-import { Category } from './category/entity';
-import { Product } from './product/entity';
-import { Color } from './color/entity';
-import { Size } from './size/entity';
+import { Category } from './category/category.entity';
+import { Product } from './product/product.entity';
+import { Color } from './color/color.entity';
+import { Size } from './size/size.entity';
 import { Inventory } from './inventory/entity';
 import { LoggerMiddleware } from './middleware/logger.middleware';
-import { ProductController } from './product/controller';
+import { AuthModule } from './auth/auth.module';
+
 @Module({
   imports: [
     ConfigModule.forRoot({
@@ -47,6 +48,7 @@ import { ProductController } from './product/controller';
     ProductModule,
     CategoryModule,
     UsersModule,
+    AuthModule,
   ],
   controllers: [AppController],
   providers: [AppService],

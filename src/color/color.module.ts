@@ -1,7 +1,7 @@
 import { Module } from '@nestjs/common';
-import { ColorController } from './controller';
-import { ColorService } from './service';
-import { Color } from './entity';
+import { ColorController } from './color.controller';
+import { ColorService } from './color.service';
+import { Color } from './color.entity';
 import { TypeOrmModule } from '@nestjs/typeorm';
 
 @Module({

@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Product } from './entity';
+import { Product } from './product.entity';
 import { CreateProductDto } from './dto/product.dto';
 import { SearchDto } from './dto/SearchDto';
 import { PagingDto } from 'src/dto/PagingDto';
@@ -39,16 +39,13 @@ export class ProductService {
     }
 
     const itemCount = await query.getCount();
-   
     query.skip((page - 1) * pageSize).take(pageSize);
     const data: Product[] = await query.getMany();
     const paging: PagingDto = new PagingDto(page, pageSize, itemCount)
-    const pageDto = new ResultDto(data, paging);
-    return pageDto;
+    return new ResultDto(data, paging);
 }
 
   findOne(id: number): Promise<Product> {
-    // return this.productRepository.findOneBy({ id: id });
     return this.productRepository.findOne({
     where: { id: id },
       relations: {
@@ -64,8 +61,8 @@ export class ProductService {
    
   }
 
-  async findByCategory(id: number): Promise<Product[]> {
-    return this.productRepository.find(
+  async findByCategory(id: number): Promise<ResultDto<Product>> {
+    const data: Product[] =  await this.productRepository.find(
       {
         where: {
           category: {
@@ -83,6 +80,7 @@ export class ProductService {
         },
       }
     );
+    return new ResultDto(data)
   }
 
   async findByKeyWord(searchDto: SearchDto): Promise<Product[]> {

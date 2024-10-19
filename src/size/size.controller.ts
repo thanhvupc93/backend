@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete } from '@nestjs/common';
-import { SizeService } from './service';
+import { SizeService } from './size.service';
 import { CreateSizeDto } from './dto/size.dto';
-import { Size } from './entity';
+import { Size } from './size.entity';
 
 
 @Controller('size')

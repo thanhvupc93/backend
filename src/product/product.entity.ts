@@ -1,7 +1,7 @@
-import { Category } from 'src/category/entity';
-import { Color } from 'src/color/entity';
+import { Category } from 'src/category/category.entity';
+import { Color } from 'src/color/color.entity';
 import { Inventory } from 'src/inventory/entity';
-import { Size } from 'src/size/entity';
+import { Size } from 'src/size/size.entity';
 import {
   Column,
   Entity,
