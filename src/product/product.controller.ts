@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete, Query} from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete, Query } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/product.dto';
 import { Product } from './product.entity';
@@ -18,25 +18,34 @@ export class ProductController {
 
   @Public()
   @Get()
-  async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<Product>>{
+  async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<Product>> {
     try {
       const page = searchDto.page ? Number(searchDto.page) : 1;
       const pageSize = searchDto.pageSize ? Number(searchDto.pageSize) : 2;
-      const data= await this.productService.findAll(searchDto, page, pageSize);
+      const data = await this.productService.findAll(searchDto, page, pageSize);
       if (data) {
         return data
       }
       throw Error();
     } catch (error) {
       console.log(error)
-       throw Error();
+      throw Error();
     }
   }
 
   @Public()
   @Get(':id')
-  findOne(@Param('id', ParseIntPipe) id: number): Promise<Product> {
-    return this.productService.findOne(id);
+  findOne(@Param('id', ParseIntPipe) id: number): Promise<ResultDto<Product>> {
+    try {
+      const data = this.productService.findOne(id)
+      if (data) {
+        return data
+      }
+      throw Error();
+    } catch (error) {
+      console.log(error)
+      throw Error();
+    }
   }
 
   @Public()

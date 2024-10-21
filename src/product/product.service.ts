@@ -23,19 +23,19 @@ export class ProductService {
   }
 
   async findAll(searchDto: SearchDto, page: number, pageSize: number): Promise<ResultDto<Product>> {
-  
+
     const query = this.productRepository.createQueryBuilder('product')
       .leftJoinAndSelect("product.category", "category")
       .leftJoinAndSelect("product.colors", "colors")
       .leftJoinAndSelect("product.inventories", "inventories")
       .where('1 = :check', { check: 1 })
-    
-    if (searchDto.title && searchDto.title !='undefined') {
+
+    if (searchDto.title && searchDto.title != 'undefined') {
       query.andWhere('LOWER(product.title) LIKE LOWER(:title)', { title: `%${searchDto.title.trim()}%` })
     }
 
-    if (searchDto.category  && searchDto.category != 0) { 
-       query.andWhere('category.id = :categoryId', {categoryId: searchDto.category})
+    if (searchDto.category && searchDto.category != 0) {
+      query.andWhere('category.id = :categoryId', { categoryId: searchDto.category })
     }
 
     const itemCount = await query.getCount();
@@ -43,30 +43,32 @@ export class ProductService {
     const data: Product[] = await query.getMany();
     const paging: PagingDto = new PagingDto(page, pageSize, itemCount)
     return new ResultDto(data, paging);
-}
+  }
 
-  findOne(id: number): Promise<Product> {
-    return this.productRepository.findOne({
-    where: { id: id },
+  async findOne(id: number): Promise<ResultDto<Product>> {
+
+    const data: Product = await this.productRepository.findOne({
+      where: { id: id },
       relations: {
-          category: true,
-          colors: true,
-          inventories: {
-            color: true,
-            size: true
-          },
-          sizes: true
+        category: true,
+        colors: true,
+        inventories: {
+          color: true,
+          size: true
         },
+        sizes: true
+      },
     });
-   
+     return new ResultDto(data, null);
+
   }
 
   async findByCategory(id: number): Promise<ResultDto<Product>> {
-    const data: Product[] =  await this.productRepository.find(
+    const data: Product[] = await this.productRepository.find(
       {
         where: {
           category: {
-          id
+            id
           }
         },
         relations: {
@@ -84,10 +86,10 @@ export class ProductService {
   }
 
   async findByKeyWord(searchDto: SearchDto): Promise<Product[]> {
-   
+
     return this.productRepository.find(
       {
-       
+
         relations: {
           category: true,
           colors: true,
