@@ -1,6 +1,13 @@
 import { Color } from 'src/color/color.entity';
+import { OrderItems } from 'src/order-items/order_items.entity';
 import { Size } from 'src/size/size.entity';
-import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  ManyToOne,
+  OneToMany,
+  PrimaryGeneratedColumn,
+} from 'typeorm';
 
 @Entity()
 export class Inventory {
@@ -12,6 +19,9 @@ export class Inventory {
 
   @ManyToOne(() => Size, (size) => size.inventories)
   size: Size;
+
+  @OneToMany(() => OrderItems, (orderItems) => orderItems.inventories)
+  orderItems: OrderItems[];
 
   @Column()
   value: number;

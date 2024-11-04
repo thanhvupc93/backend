@@ -16,6 +16,10 @@ import { Size } from './size/size.entity';
 import { Inventory } from './inventory/entity';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AuthModule } from './auth/auth.module';
+import { OrderModule } from './order/order.module';
+import { Order } from './order/order.entity';
+import { OrderItems } from './order-items/order_items.entity';
+import { OrderItemsModule } from './order-items/order_items.module';
 
 @Module({
   imports: [
@@ -36,7 +40,16 @@ import { AuthModule } from './auth/auth.module';
           username: config['USERNAME'],
           password: config['PASSWORD'],
           database: config['DATABASE'],
-          entities: [User, Category, Product, Color, Size, Inventory],
+          entities: [
+            User,
+            Category,
+            Product,
+            Color,
+            Size,
+            Inventory,
+            Order,
+            OrderItems,
+          ],
           synchronize: true,
         };
       },
@@ -49,6 +62,8 @@ import { AuthModule } from './auth/auth.module';
     CategoryModule,
     UsersModule,
     AuthModule,
+    OrderModule,
+    OrderItemsModule,
   ],
   controllers: [AppController],
   providers: [AppService],
