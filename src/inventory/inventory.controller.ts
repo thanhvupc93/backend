@@ -1,7 +1,7 @@
 import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete } from '@nestjs/common';
 import { InventoryService } from './inventory.service';
 // import { CreateInventoryDto } from './dto/inventory.dto';
-import { Inventory } from './entity';
+import { Inventory } from './inventory.entity';
 import { Public } from 'src/auth/decorators/public.decorator';
 
 

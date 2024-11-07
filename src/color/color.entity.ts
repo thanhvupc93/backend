@@ -1,4 +1,4 @@
-import { Inventory } from 'src/inventory/entity';
+import { Inventory } from 'src/inventory/inventory.entity';
 import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
 
 @Entity()

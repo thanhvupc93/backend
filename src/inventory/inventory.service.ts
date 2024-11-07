@@ -1,7 +1,7 @@
 import { Injectable } from '@nestjs/common';
 import { InjectRepository } from '@nestjs/typeorm';
 import { Repository } from 'typeorm';
-import { Inventory } from './entity';
+import { Inventory } from './inventory.entity';
 // import { InventorySizeDto } from './dto/inventory.dto';
 
 @Injectable()

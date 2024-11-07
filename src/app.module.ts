@@ -13,13 +13,15 @@ import { Category } from './category/category.entity';
 import { Product } from './product/product.entity';
 import { Color } from './color/color.entity';
 import { Size } from './size/size.entity';
-import { Inventory } from './inventory/entity';
+import { Inventory } from './inventory/inventory.entity';
 import { LoggerMiddleware } from './middleware/logger.middleware';
 import { AuthModule } from './auth/auth.module';
 import { OrderModule } from './order/order.module';
 import { Order } from './order/order.entity';
 import { OrderItems } from './order-items/order_items.entity';
 import { OrderItemsModule } from './order-items/order_items.module';
+import { Role } from './role/role.entity';
+import { RoleModule } from './role/role.module';
 
 @Module({
   imports: [
@@ -49,6 +51,7 @@ import { OrderItemsModule } from './order-items/order_items.module';
             Inventory,
             Order,
             OrderItems,
+            Role,
           ],
           synchronize: true,
         };
@@ -64,6 +67,7 @@ import { OrderItemsModule } from './order-items/order_items.module';
     AuthModule,
     OrderModule,
     OrderItemsModule,
+    RoleModule,
   ],
   controllers: [AppController],
   providers: [AppService],

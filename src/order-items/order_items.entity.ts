@@ -1,4 +1,4 @@
-import { Inventory } from 'src/inventory/entity';
+import { Inventory } from 'src/inventory/inventory.entity';
 import { Order } from 'src/order/order.entity';
 import { Column, Entity, ManyToOne, PrimaryGeneratedColumn } from 'typeorm';
 

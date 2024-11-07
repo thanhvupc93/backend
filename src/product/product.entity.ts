@@ -1,6 +1,6 @@
 import { Category } from 'src/category/category.entity';
 import { Color } from 'src/color/color.entity';
-import { Inventory } from 'src/inventory/entity';
+import { Inventory } from 'src/inventory/inventory.entity';
 import { Size } from 'src/size/size.entity';
 import {
   Column,
