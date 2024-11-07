@@ -5,6 +5,7 @@ import { Product } from './product.entity';
 import { SearchDto } from './dto/SearchDto';
 import { ResultDto } from 'src/dto/ResultDto';
 import { Public } from 'src/auth/decorators/public.decorator';
+import { PAGE_PAGESIZE } from 'src/contants/data';
 
 @Controller('products')
 export class ProductController {
@@ -21,7 +22,7 @@ export class ProductController {
   async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<Product>> {
     try {
       const page = searchDto.page ? Number(searchDto.page) : 1;
-      const pageSize = searchDto.pageSize ? Number(searchDto.pageSize) : 2;
+      const pageSize = searchDto.pageSize ? Number(searchDto.pageSize) : PAGE_PAGESIZE;
       const data = await this.productService.findAll(searchDto, page, pageSize);
       if (data) {
         return data

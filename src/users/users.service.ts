@@ -86,7 +86,7 @@ export class UsersService {
   async findAll(searchDto: SearchDto, page: number, pageSize: number): Promise<ResultDto<User>> {
     const query = this.usersRepository.createQueryBuilder('user')
       .leftJoinAndSelect("user.roles", "roles")
-      .where('1 = :check', { check: 1 })
+      .where("user.isDelete = :isDelete", { isDelete: false })
     if (searchDto.search && searchDto.search != 'undefined') {
       query.andWhere('LOWER(user.userName) LIKE LOWER(:userName)', { userName: `%${searchDto.search.trim()}%` });
       query.orWhere('LOWER(user.email) LIKE LOWER(:email)', { email: `%${searchDto.search.trim()}%` });
@@ -94,6 +94,10 @@ export class UsersService {
       query.orWhere('LOWER(user.fullName) LIKE LOWER(:fullName)', { fullName: `%${searchDto.search.trim()}%` });
       query.orWhere('LOWER(roles.name) LIKE LOWER(:roleName)', { roleName: `%${searchDto.search.trim()}%` });
     }
+    if (searchDto.active && searchDto.active != 'undefined') {
+      query.andWhere("user.isActive = :isActive", { isActive: searchDto.active === 'true' ? true : false })
+    }
+
 
     const itemCount = await query.getCount();
     query.skip((page - 1) * pageSize).take(pageSize);
@@ -127,6 +131,7 @@ export class UsersService {
       where: { id: id },
     });
     user.isActive = false;
+    user.isDelete = true;
     const data: User = await this.usersRepository.save(user);
     return new ResultDto(data, null);
   }

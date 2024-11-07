@@ -22,6 +22,8 @@ import { OrderItems } from './order-items/order_items.entity';
 import { OrderItemsModule } from './order-items/order_items.module';
 import { Role } from './role/role.entity';
 import { RoleModule } from './role/role.module';
+import { SizeModule } from './size/size.module';
+import { ColorModule } from './color/color.module';
 
 @Module({
   imports: [
@@ -64,6 +66,8 @@ import { RoleModule } from './role/role.module';
     ProductModule,
     CategoryModule,
     UsersModule,
+    SizeModule,
+    ColorModule,
     AuthModule,
     OrderModule,
     OrderItemsModule,

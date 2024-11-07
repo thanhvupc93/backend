@@ -15,6 +15,7 @@ import { UsersService } from './users.service';
 import { Public } from 'src/auth/decorators/public.decorator';
 import { ResultDto } from 'src/dto/ResultDto';
 import { SearchDto } from './dto/SearchDto';
+import { PAGE_PAGESIZE } from 'src/contants/data';
 
 @Controller('users')
 export class UsersController {
@@ -45,7 +46,7 @@ export class UsersController {
   async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<User>> {
     try {
       const page = searchDto.page ? Number(searchDto.page) : 1;
-      const pageSize = searchDto.pageSize ? Number(searchDto.pageSize) : 10;
+      const pageSize = searchDto.pageSize ? Number(searchDto.pageSize) : PAGE_PAGESIZE;
       const data = await this.usersService.findAll(searchDto, page, pageSize);
       if (data) {
         return data
