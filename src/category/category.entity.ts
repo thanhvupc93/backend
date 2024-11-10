@@ -1,7 +1,14 @@
 import { Product } from 'src/product/product.entity';
-import { Column, Entity, OneToMany, PrimaryGeneratedColumn } from 'typeorm';
+import {
+  Column,
+  Entity,
+  OneToMany,
+  PrimaryGeneratedColumn,
+  Unique,
+} from 'typeorm';
 
 @Entity()
+@Unique(['title'])
 export class Category {
   @PrimaryGeneratedColumn()
   id: number;

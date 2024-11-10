@@ -28,7 +28,6 @@ export class InventoryService {
   async upDateQuantity(id: number, quantity: number): Promise<Inventory> {
     const data = await this.inventoryRepository.findOneBy({ id: id });
     data.quantity = data.quantity - quantity;
-    console.log('data:', data)
     return this.inventoryRepository.save(data);
   }
 

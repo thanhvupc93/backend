@@ -3,4 +3,5 @@ export class CreateCategoryDto {
   image: string;
   title: string;
   type: string;
+  isActive: boolean;
 }

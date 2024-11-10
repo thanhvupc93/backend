@@ -14,17 +14,14 @@ export class Inventory {
   @PrimaryGeneratedColumn()
   id: number;
 
-  @ManyToOne(() => Color, (color) => color.inventories)
+  @ManyToOne((optional = true) => Color, (color) => color.inventories)
   color: Color;
 
-  @ManyToOne(() => Size, (size) => size.inventories)
+  @ManyToOne((optional = true) => Size, (size) => size.inventories)
   size: Size;
 
   @OneToMany(() => OrderItems, (orderItems) => orderItems.inventories)
   orderItems: OrderItems[];
-
-  @Column()
-  value: number;
 
   @Column('numeric', { nullable: true })
   price: number;

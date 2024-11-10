@@ -1,4 +1,4 @@
-import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete, Query } from '@nestjs/common';
+import { Controller, Get, Post, Body, Param, ParseIntPipe, Delete, Query, Put } from '@nestjs/common';
 import { ProductService } from './product.service';
 import { CreateProductDto } from './dto/product.dto';
 import { Product } from './product.entity';
@@ -11,10 +11,25 @@ import { PAGE_PAGESIZE } from 'src/contants/data';
 export class ProductController {
   constructor(private readonly productService: ProductService) { }
 
-  @Public()
   @Post()
-  create(@Body() createProductDto: CreateProductDto): Promise<Product> {
-    return this.productService.create(createProductDto);
+  create(@Body() createProductDto: CreateProductDto): Promise<ResultDto<Product>> {
+    try {
+      return this.productService.create(createProductDto);
+    } catch (error) {
+      console.log(error)
+      throw Error();
+    }
+  }
+
+
+  @Put()
+  update(@Body() createProductDto: CreateProductDto): Promise<ResultDto<Product>> {
+    try {
+      return this.productService.update(createProductDto);
+    } catch (error) {
+      console.log(error)
+      throw Error();
+    }
   }
 
   @Public()
@@ -59,7 +74,6 @@ export class ProductController {
     }
   }
 
-  @Public()
   @Delete(':id')
   remove(@Param('id') id: string): Promise<void> {
     return this.productService.remove(id);

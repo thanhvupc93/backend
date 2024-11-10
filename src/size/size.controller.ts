@@ -5,9 +5,10 @@ import { Size } from './size.entity';
 import { ResultDto } from 'src/dto/ResultDto';
 import { SearchDto } from 'src/size/dto/SearchDto';
 import { PAGE_PAGESIZE } from 'src/contants/data';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 
-@Controller('size')
+@Controller('sizes')
 export class SizeController {
   constructor(private readonly sizeService: SizeService) { }
 
@@ -31,6 +32,7 @@ export class SizeController {
     }
   }
 
+  @Public()
   @Get()
   async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<Size>> {
     try {

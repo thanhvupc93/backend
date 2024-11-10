@@ -68,6 +68,7 @@ import { ColorModule } from './color/color.module';
     UsersModule,
     SizeModule,
     ColorModule,
+    CategoryModule,
     AuthModule,
     OrderModule,
     OrderItemsModule,

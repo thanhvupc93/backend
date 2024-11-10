@@ -5,9 +5,10 @@ import { Color } from './color.entity';
 import { ResultDto } from 'src/dto/ResultDto';
 import { PAGE_PAGESIZE } from 'src/contants/data';
 import { SearchDto } from './dto/SearchDto';
+import { Public } from 'src/auth/decorators/public.decorator';
 
 
-@Controller('color')
+@Controller('colors')
 export class ColorController {
   constructor(private readonly colorService: ColorService) { }
 
@@ -31,6 +32,7 @@ export class ColorController {
     }
   }
 
+  @Public()
   @Get()
   async findAll(@Query() searchDto: SearchDto): Promise<ResultDto<Color>> {
     try {
